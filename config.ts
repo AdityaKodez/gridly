@@ -57,6 +57,46 @@ export const appConfig = {
   // Change this to adjust corner roundness globally.
   // Options: "sm" | "md" | "lg" | "xl"| " "(for rounded-none )
   radius: "lg" as RadiusName,
+
+  arcjet: {
+    enabled: true, // master switch - set false to bypass all Arcjet rules globally
+
+    shield: {
+      enabled: true, // protects against SQLi, XSS, and common attack patterns
+      mode: "LIVE", // "LIVE" blocks, "DRY_RUN" only logs
+    },
+
+    botProtection: {
+      enabled: true, // blocks headless browsers and scrapers on key routes
+      mode: "LIVE",
+      allow: [
+        "CATEGORY:SEARCH_ENGINE",
+        "CATEGORY:MONITOR",
+        "CATEGORY:PREVIEW",
+      ],
+    },
+
+    rateLimit: {
+      api: {
+        enabled: true,
+        mode: "LIVE",
+        max: 100, // requests
+        window: "60s", // per window
+      },
+      auth: {
+        enabled: true,
+        mode: "LIVE",
+        max: 10,
+        window: "60s", // tighter limit for login/signup routes
+      },
+      ai: {
+        enabled: true,
+        mode: "LIVE",
+        max: 20,
+        window: "1h", // for AI-heavy endpoints; adjust per your cost model
+      },
+    },
+  },
 } as const;
 
 // ─── Auth ────────────────────────────────────────────
