@@ -1,9 +1,17 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { protectWithRules } from "@/lib/arcjet";
+import { apiRules } from "@/lib/arcjet-rules";
 import { createTRPCContext } from "@/trpc/init";
 import { appRouter } from "@/trpc/routers/_app";
 
-const handler = (req: Request) =>
-  fetchRequestHandler({
+const handler = async (req: Request) => {
+  const decision = await protectWithRules(req, apiRules);
+
+  if (decision?.isDenied()) {
+    return new Response("Too many requests", { status: 429 });
+  }
+
+  return fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
     router: appRouter,
@@ -22,5 +30,6 @@ const handler = (req: Request) =>
             });
           },
   });
+};
 
 export { handler as GET, handler as POST };

@@ -11,6 +11,8 @@ import { headers } from "next/headers";
 import { z } from "zod";
 import { aiModel, isAIConfigured, systemPrompt } from "@/lib/ai";
 import { auth } from "@/lib/auth";
+import { protectWithRules } from "@/lib/arcjet";
+import { aiRules } from "@/lib/arcjet-rules";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +49,11 @@ function toClientErrorMessage(error: unknown): string {
 }
 
 export async function POST(req: Request) {
+  const decision = await protectWithRules(req, aiRules);
+  if (decision?.isDenied()) {
+    return new Response("Too many requests", { status: 429 });
+  }
+
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
     return new Response("Unauthorized", { status: 401 });

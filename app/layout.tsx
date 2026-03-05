@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { appConfig } from "@/config";
 import { generateThemeCSS } from "@/lib/theme-presets";
 import { TRPCReactProvider } from "@/trpc/client";
+import { DM_Sans } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
 import { GeistSans } from "geist/font/sans";
@@ -11,6 +12,10 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
 const themeCSS = generateThemeCSS(appConfig.theme, appConfig.radius);
 
+const DmSans = DM_Sans({
+fallback:["latin"],
+variable: "--font-sans",
+})
 export const metadata: Metadata = {
   title: {
     default: appConfig.name,
@@ -65,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}
+      className={`${GeistSans.variable} ${DmSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}
       suppressHydrationWarning
     >
       <head suppressHydrationWarning>
