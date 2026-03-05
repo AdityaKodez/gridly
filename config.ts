@@ -7,6 +7,8 @@ import {
   ZapIcon,
   PaletteIcon,
 } from "lucide-react";
+import { SiTailwindcss } from "react-icons/si";
+
 import type { RadiusName, ThemeName } from "./lib/theme-presets";
 import {
   BetterAuth,
@@ -15,6 +17,8 @@ import {
   BrandTypeScript,
   PolarIcon,
   PrismaIcon,
+  ArcjetIcon,
+  AiSdkIcon,
 } from "./public";
 import type {
   ComparisonRow,
@@ -246,6 +250,12 @@ export const landingConfig = {
         "End-to-end type safety for your API. No more manual type synchronization.",
     },
     {
+      icon: AiSdkIcon,
+      title: "AI SDK",
+      description:
+        "Vercel AI SDK integration with streaming responses, tool calling, and agent workflows.",
+    },
+    {
       icon: PolarIcon,
       title: "Polar",
       description:
@@ -256,6 +266,18 @@ export const landingConfig = {
       title: "Better Auth",
       description:
         "GitHub, Google, Discord — pre-wired with Better Auth. Secure sessions out of the box.",
+    },
+    {
+      icon: ArcjetIcon,
+      title: "Arcjet",
+      description:
+        "Shield WAF, bot protection, and route-level rate limiting pre-configured for production APIs.",
+    },
+    {
+      icon: SiTailwindcss,
+      title: "Tailwind CSS",
+      description:
+        "Utility-first styling with fast iteration and a production-ready design system foundation.",
     },
     {
       icon: PrismaIcon,

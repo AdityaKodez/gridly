@@ -6,7 +6,6 @@ import { TRPCReactProvider } from "@/trpc/client";
 import { DM_Sans } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
@@ -70,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${DmSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}
+      className={` ${DmSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}
       suppressHydrationWarning
     >
       <head suppressHydrationWarning>

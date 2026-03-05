@@ -13,13 +13,11 @@ export const Hero = async () => {
   return (
     <section className="container mx-auto max-w-6xl px-6 py-20 md:py-28 text-left border-x border-dashed border-b">
       <div className="max-w-3xl">
-        <p className="mb-4 inline-flex items-center rounded-full border border-dashed bg-muted/60 px-3 py-1 text-xs font-medium tracking-wide text-muted-foreground">
-          Open-source starter, production ready
-        </p>
+       
         <h1 className="text-4xl md:text-6xl tracking-tight font-semibold leading-tight">
-          <span className="text-primary inline-flex items-center gap-2">
+          <span className="text-primary">
           {hero.titleAccent}
-          <DatabaseIcon className="size-8 md:size-10 text-primary fill-primary/30" />
+  
           </span>
           <span className="block mt-2 text-foreground">{hero.title}</span>
         </h1>

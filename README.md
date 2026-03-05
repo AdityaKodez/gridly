@@ -164,7 +164,7 @@ app/
 ├── (marketing)/        # Public landing page
 └── api/                # API routes (AI, auth, tRPC)
 features/               # Feature modules (ai, auth, dashboard, landing)
-lib/                    # Server utilities (auth, db, ai, billing)
+lib/                    # Server utilities (auth, db, ai, billing, arcjet)
 trpc/                   # tRPC routers + init
 prisma/                 # Schema + migrations
 config.ts               # Single config for the entire app
