@@ -13,6 +13,7 @@ import { plansConfig } from "@/config";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Check, DollarSignIcon } from "lucide-react";
+import { toast } from "sonner";
 
 const Pricing = () => {
   const handleCheckout = async (productId: string) => {
@@ -22,7 +23,7 @@ const Pricing = () => {
       });
     } catch (error) {
       console.error("Checkout failed:", error);
-      // TODO: Show user-friendly error message (toast/alert)
+      toast.error("Checkout failed. Please try again.");
     }
   };
 
