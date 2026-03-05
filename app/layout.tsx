@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { appConfig } from "@/config";
 import { generateThemeCSS } from "@/lib/theme-presets";
 import { TRPCReactProvider } from "@/trpc/client";
+import { Toaster } from "@/components/ui/sonner";
 import { DM_Sans } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
@@ -85,6 +86,7 @@ export default function RootLayout({
           </ThemeProvider>
         </TRPCReactProvider>
         <Analytics/>
+        <Toaster />
       </body>
     </html>
   );
