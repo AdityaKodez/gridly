@@ -34,6 +34,7 @@ Auth, database, payments, AI chat, background jobs — fully wired.<br/>
 | **AI Chat** | Vercel AI SDK — streaming, tool calling, multi-step agents |
 | **Database** | Prisma + PostgreSQL (Neon-ready), typed queries |
 | **API** | tRPC — end-to-end type safety, no REST boilerplate |
+| **Security** | Arcjet — Shield WAF, bot protection, route-level rate limiting |
 | **UI** | Shadcn/ui — accessible, themeable component system |
 | **UX** | Next.js App Router streaming + layout-matching loading skeletons |
 | **Landing Page** | Hero, Features, Pricing, Comparison, FAQ, Footer — all config-driven |
@@ -76,6 +77,16 @@ export const appConfig = {
   url: "https://yourapp.com",
   theme: "blue",               // "orange" | "blue" | "violet" | "rose" | "emerald" | "amber"
   radius: "lg",                // "sm" | "md" | "lg" | "xl"
+  arcjet: {
+    enabled: true,
+    shield: { enabled: true, mode: "LIVE" },
+    botProtection: { enabled: true, mode: "LIVE" },
+    rateLimit: {
+      api: { enabled: true, mode: "LIVE", max: 100, window: "60s" },
+      auth: { enabled: true, mode: "LIVE", max: 10, window: "60s" },
+      ai: { enabled: true, mode: "LIVE", max: 20, window: "1h" },
+    },
+  },
 };
 ```
 
@@ -96,8 +107,23 @@ Landing page copy, pricing plans, auth providers, dashboard nav, legal pages —
 | `DISCORD_CLIENT_ID/SECRET` | OAuth | [Discord Developer Portal](https://discord.com/developers) |
 | `POLAR_ACCESS_TOKEN` | Payments | [Polar](https://polar.sh) → Settings → API Keys |
 | `POLAR_WEBHOOK_SECRET` | Payments | Polar webhook settings |
+| `ARCJET_KEY` | Security (recommended) | [Arcjet Dashboard](https://app.arcjet.com) |
 
 Only enable the OAuth providers you add keys for — the sign-in page adapts automatically.
+## Arcjet Security (Rate Limiting + Bot Protection)
+
+Arcjet is pre-wired and controlled entirely from `config.ts` + one env var:
+
+- Set `ARCJET_KEY` in `.env`
+- Toggle `appConfig.arcjet.enabled` to enable/disable globally
+- Fine-tune `shield`, `botProtection`, and `rateLimit` in `appConfig.arcjet`
+
+Current route coverage:
+- `authRules` on `POST /api/auth/[...all]`
+- `apiRules` on `/api/trpc/[trpc]`
+- `aiRules` on `/api/ai/chat`
+
+When a rule denies a request, routes return `429 Too many requests`.
 
 ---
 
@@ -166,6 +192,7 @@ For a complete, step-by-step walkthrough of deploying Gridly to Vercel with a Ne
 | [Better Auth](https://better-auth.com) | OAuth, sessions, protected routes |
 | [Polar](https://polar.sh) | Payments, subscriptions, webhooks |
 | [Vercel AI SDK](https://sdk.vercel.ai) | Streaming AI, tool calling |
+| [Arcjet](https://arcjet.com) | WAF, bot detection, and rate limiting |
 | [Shadcn/ui](https://ui.shadcn.com) | Accessible, customizable components |
 
 ---
