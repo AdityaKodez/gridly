@@ -4,6 +4,7 @@ import { UIMessage } from "@ai-sdk/react";
 import { cn } from "@/lib/utils";
 import { Bot, Terminal, Clock } from "lucide-react";
 import { MessageResponse } from "@/components/ai-elements/message";
+import { memo } from "react";
 
 interface MessageProps {
   message: UIMessage;
@@ -75,7 +76,7 @@ function ToolResult({ part }: { part: UIMessage["parts"][number] }) {
   return null;
 }
 
-export function ChatMessage({ message }: MessageProps) {
+export const  ChatMessage = memo( function ChatMessage ({ message }: MessageProps) {
   const isUser = message.role === "user";
 
   return (
@@ -119,4 +120,6 @@ export function ChatMessage({ message }: MessageProps) {
       </div>
     </div>
   );
-}
+});
+
+ChatMessage.displayName = "ChatMessage";

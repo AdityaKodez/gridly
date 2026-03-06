@@ -1,23 +1,23 @@
 import "server-only";
 
+import { aiModel, isAIConfigured, systemPrompt } from "@/lib/ai";
+import { protectWithRules } from "@/lib/arcjet";
+import { aiRules } from "@/lib/arcjet-rules";
+import { auth } from "@/lib/auth";
 import {
   convertToModelMessages,
   safeValidateUIMessages,
   stepCountIs,
   streamText,
-  tool,
+  tool
 } from "ai";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { aiModel, isAIConfigured, systemPrompt } from "@/lib/ai";
-import { auth } from "@/lib/auth";
-import { protectWithRules } from "@/lib/arcjet";
-import { aiRules } from "@/lib/arcjet-rules";
 
 export const dynamic = "force-dynamic";
 
 const chatRequestBodySchema = z.object({
-  messages: z.unknown(),
+  messages: z.array(z.any()),
 });
 
 function extractStatusCode(error: unknown): number | null {

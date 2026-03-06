@@ -15,8 +15,11 @@ import { headers } from "next/headers";
 import { getGitHubRepoStars } from "@/lib/github";
 
 export const Header = async () => {
-  const session = await auth.api.getSession({ headers: await headers() });
-  const stars = await getGitHubRepoStars(appConfig.github);
+  const [session, stars] = await Promise.all([
+    auth.api.getSession({ headers: await headers() }),
+    getGitHubRepoStars(appConfig.github),
+  ]);
+
 
   return (
     <div

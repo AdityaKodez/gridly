@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useChat } from "@ai-sdk/react";
 import { ArrowUp, Bot, Loader2, Sparkles } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChatMessage } from "./message";
 
 const SUGGESTED_PROMPTS = [
@@ -30,10 +30,10 @@ export function Chat() {
 
   const isStreaming = status === "streaming" || status === "submitted";
   const isEmpty = messages.length === 0;
-
+  const messageCount = messages.length;
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    bottomRef.current?.scrollIntoView({ behavior: isStreaming ? "auto" : "smooth" });
+  }, [messageCount , isStreaming]);
 
   useEffect(() => {
     const el = textareaRef.current;
@@ -42,7 +42,7 @@ export function Chat() {
     el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
   }, [input]);
 
-  function handleSend() {
+  const  handleSend = useCallback(() => {
     const text = input.trim();
     if (!text || isStreaming) return;
     if (error) {
@@ -50,7 +50,7 @@ export function Chat() {
     }
     sendMessage({ text });
     setInput("");
-  }
+  }, [input, isStreaming, error, clearError, sendMessage]);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
