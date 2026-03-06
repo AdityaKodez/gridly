@@ -11,7 +11,7 @@ const orderPaidDataSchema = z.object({
   productId: z.string().nullable(),
   subscriptionId: z.string().nullable(),
   customer: z.object({
-    email: z.string().email(),
+    email: z.email(),
     externalId: z.string().nullable(),
   }),
 });
@@ -43,15 +43,7 @@ export async function applyOrderPaidEntitlement(
     return;
   }
 
-  const user = await prisma.user.findFirst({
-    where: {
-      OR: [
-        ...(order.customer.externalId ? [{ id: order.customer.externalId }] : []),
-        { email: normalizedEmail },
-      ],
-    },
-    select: { id: true },
-  });
+  const user = await prisma.user.findUnique({ where: { email: normalizedEmail } })
 
   if (!user) {
     console.error("[Polar] No matching user for paid order", {
