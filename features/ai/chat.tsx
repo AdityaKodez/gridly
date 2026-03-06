@@ -135,7 +135,7 @@ export function Chat() {
               placeholder="Message AI…"
               rows={1}
               disabled={isStreaming}
-              className="flex-1 resize-none border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 min-h-[44px] max-h-[180px] leading-6"
+              className="flex-1 resize-none border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 min-h-11 max-h-45 leading-6"
             />
             <Button
               size="icon"
