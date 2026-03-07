@@ -34,11 +34,11 @@ function ToolResult({ part }: { part: UIMessage["parts"][number] }) {
             </div>
             <div>
               <span className="text-muted-foreground">id: </span>
-              <span className="opacity-60">{result.id.slice(0, 18)}…</span>
+              <span className="opacity-60">{result.id.slice(0, 18)}...</span>
             </div>
           </div>
         ) : (
-          <span className="text-muted-foreground italic">Loading…</span>
+          <span className="text-muted-foreground italic">Loading...</span>
         )}
       </div>
     );
@@ -67,7 +67,7 @@ function ToolResult({ part }: { part: UIMessage["parts"][number] }) {
             </div>
           </div>
         ) : (
-          <span className="text-muted-foreground italic">Loading…</span>
+          <span className="text-muted-foreground italic">Loading...</span>
         )}
       </div>
     );
@@ -86,7 +86,7 @@ export const  ChatMessage = memo( function ChatMessage ({ message }: MessageProp
         isUser && "flex-row-reverse",
       )}
     >
-      {/* Avatar — only for AI */}
+      {/* Avatar -- only for AI */}
       {!isUser && (
         <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted border border-border text-muted-foreground">
           <Bot className="size-4" />

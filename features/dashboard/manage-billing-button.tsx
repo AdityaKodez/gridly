@@ -25,7 +25,7 @@ export function ManageBillingButton() {
       onClick={handleManageBilling}
       disabled={loading}
     >
-      {loading ? "Loading…" : "Manage Billing"}
+      {loading ? "Loading..." : "Manage Billing"}
     </Button>
   );
 }

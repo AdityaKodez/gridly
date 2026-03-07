@@ -73,7 +73,7 @@ export default async function SettingsPage() {
                     User ID
                   </p>
                   <p className="text-sm font-mono text-muted-foreground">
-                    {user.id.slice(0, 16)}…
+                    {user.id.slice(0, 16)}...
                   </p>
                 </div>
                 <div className="space-y-1">

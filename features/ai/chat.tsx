@@ -3,6 +3,14 @@
 import {DefaultChatTransport} from "ai";
 import {Button} from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import {cn} from "@/lib/utils";
 import {useChat} from "@ai-sdk/react";
 import {ArrowUp, Bot, BotIcon, Loader2} from "lucide-react";
@@ -61,41 +69,36 @@ export function Chat() {
 
   return (
     <div className="flex flex-col" style={{ height: "100%", minHeight: 0 }}>
-      {/* ── Scrollable messages ── */}
+      {/* Scrollable messages */}
       <div className="flex-1 overflow-y-auto min-h-0">
         {isEmpty ? (
-          /* ── Empty state ── */
-          <div className="flex flex-col items-center justify-center min-h-full gap-6 px-6 py-16 text-center">
-            <div className="flex size-14 items-center justify-center rounded-xl bg-primary/10 text-primary relative">
-              <BotIcon className="size-7" />
-            <div className={"ring-1 ring-inset ring-foreground"}></div>
-
-            </div>
-
-            <div className="space-y-2 max-w-sm">
-              <h2 className="text-2xl font-semibold tracking-tight">
+          <Empty className="min-h-full border-0">
+            <EmptyHeader>
+              <EmptyMedia variant="icon" className="bg-primary/10 text-primary">
+                <BotIcon className="size-6" />
+              </EmptyMedia>
+              <EmptyTitle className="text-2xl font-semibold tracking-tight">
                 How can I help you?
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Ask me anything — I can answer questions and interact with the
-                app on your behalf.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-2 mt-2 max-w-md">
-              {SUGGESTED_PROMPTS.map((prompt) => (
-                <button
-                  key={prompt}
-                  onClick={() => sendMessage({ text: prompt })}
-                  className="rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
-          </div>
+              </EmptyTitle>
+              <EmptyDescription className="text-sm">
+                Ask me anything. I can answer questions and interact with the app on your behalf.
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent className="max-w-md">
+              <div className="flex flex-wrap justify-center gap-2">
+                {SUGGESTED_PROMPTS.map((prompt) => (
+                  <button
+                    key={prompt}
+                    onClick={() => sendMessage({ text: prompt })}
+                    className="rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            </EmptyContent>
+          </Empty>
         ) : (
-          /* ── Message list ── */
           <div className="mx-auto w-full max-w-2xl px-4 py-6 space-y-6">
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
@@ -120,7 +123,7 @@ export function Chat() {
         )}
       </div>
 
-      {/* ── Input footer ── */}
+      {/* Input footer */}
       <div className="shrink-0 bg-background/95 px-4">
         <div className="mx-auto w-full max-w-2xl space-y-2">
           <div
@@ -134,7 +137,7 @@ export function Chat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Message AI…"
+              placeholder="Message AI..."
               rows={1}
               disabled={isStreaming}
               className="flex-1 resize-none border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 min-h-11 max-h-45 leading-6"

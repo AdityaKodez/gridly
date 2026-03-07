@@ -3,6 +3,14 @@
 import { DefaultChatTransport } from "ai";
 import { useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { ArrowUp, Bot, Loader2, Sparkles, ExternalLink } from "lucide-react";
@@ -69,20 +77,33 @@ export function AiWidget() {
       <div className="flex-1 overflow-y-auto min-h-0 px-4">
         {isEmpty ? (
           <div className="flex flex-col gap-3 py-5">
-            <p className="text-xs text-muted-foreground">
-              Try asking something to see the AI in action:
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {QUICK_PROMPTS.map((p) => (
-                <button
-                  key={p}
-                  onClick={() => handleSend(p)}
-                  className="rounded-full border border-dashed border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-primary/50 hover:text-foreground hover:bg-muted/60 transition-all"
+            <Empty className="border-0 p-0 py-1">
+              <EmptyHeader>
+                <EmptyMedia
+                  variant="icon"
+                  className="bg-primary/10 text-primary"
                 >
-                  {p}
-                </button>
-              ))}
-            </div>
+                  <Bot className="size-5" />
+                </EmptyMedia>
+                <EmptyTitle className="text-base">Ask the AI</EmptyTitle>
+                <EmptyDescription className="text-xs">
+                  Try one of these prompts to see it in action.
+                </EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent className="max-w-none">
+                <div className="flex flex-wrap justify-center gap-2">
+                  {QUICK_PROMPTS.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => handleSend(p)}
+                      className="rounded-full border border-dashed border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-primary/50 hover:text-foreground hover:bg-muted/60 transition-all"
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              </EmptyContent>
+            </Empty>
           </div>
         ) : (
           <div className="space-y-4 py-4">
@@ -120,7 +141,7 @@ export function AiWidget() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask AI something…"
+            placeholder="Ask AI something..."
             disabled={isStreaming}
             className="flex-1 border-0 bg-transparent p-0 text-xs shadow-none focus-visible:ring-0 h-auto"
           />

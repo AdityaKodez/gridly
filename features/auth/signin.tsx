@@ -1,6 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { Spinner } from "@/components/ui/spinner";
 import { authConfig } from "@/config";
 import { signIn } from "@/lib/auth-client";
@@ -105,10 +112,17 @@ export function SignInForm({
       </div>
 
       {enabledProviders.length === 0 && (
-        <div className="bg-muted border border-dashed text-muted-foreground text-xs px-4 py-3 rounded-lg">
-          No auth providers are configured. Add OAuth credentials in your
-          environment to enable sign-in.
-        </div>
+        <Empty className="flex-none border border-dashed p-6">
+          <EmptyHeader>
+            <EmptyMedia variant="icon" className="bg-muted text-muted-foreground">
+              <auth.titleIcon className="size-5 fill-muted-foreground/40" />
+            </EmptyMedia>
+            <EmptyTitle>No sign-in methods configured</EmptyTitle>
+            <EmptyDescription>
+              Add OAuth credentials in your environment to enable sign-in.
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
       )}
 
       <p className="text-xs text-muted-foreground text-center leading-relaxed">
