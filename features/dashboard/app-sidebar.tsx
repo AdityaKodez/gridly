@@ -49,8 +49,8 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar variant="floating" collapsible="icon">
-      <SidebarHeader className="border-b border-dashed px-4 py-5 min-h-24 flex-row items-center justify-between group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:min-h-14">
+    <Sidebar variant="inset" collapsible="icon">
+      <SidebarHeader className="border-b border-dashed py-3 min-h-14 flex-row items-center justify-between group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:min-h-14">
         <Link
           href="/"
           className="flex items-center gap-3 group px-2 group-data-[collapsible=icon]:px-0! group-data-[collapsible=icon]:justify-center"
@@ -147,15 +147,7 @@ export function AppSidebar() {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem asChild>
-                      <Link href="/settings" className="cursor-pointer">
-                        <SettingsIcon className="mr-2 size-4" />
-                        Settings
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
+
                   <DropdownMenuGroup>
                     <DropdownMenuItem
                       onClick={() =>

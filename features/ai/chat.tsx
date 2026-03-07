@@ -1,13 +1,13 @@
 "use client";
 
-import { DefaultChatTransport } from "ai";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { useChat } from "@ai-sdk/react";
-import { ArrowUp, Bot, Loader2, Sparkles } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ChatMessage } from "./message";
+import {DefaultChatTransport} from "ai";
+import {Button} from "@/components/ui/button";
+import {Textarea} from "@/components/ui/textarea";
+import {cn} from "@/lib/utils";
+import {useChat} from "@ai-sdk/react";
+import {ArrowUp, Bot, BotIcon, Loader2} from "lucide-react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {ChatMessage} from "./message";
 
 const SUGGESTED_PROMPTS = [
   "Who am I logged in as?",
@@ -66,8 +66,10 @@ export function Chat() {
         {isEmpty ? (
           /* ── Empty state ── */
           <div className="flex flex-col items-center justify-center min-h-full gap-6 px-6 py-16 text-center">
-            <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <Sparkles className="size-7" />
+            <div className="flex size-14 items-center justify-center rounded-xl bg-primary/10 text-primary relative">
+              <BotIcon className="size-7" />
+            <div className={"ring-1 ring-inset ring-foreground"}></div>
+
             </div>
 
             <div className="space-y-2 max-w-sm">
