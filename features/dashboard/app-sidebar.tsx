@@ -1,7 +1,7 @@
 "use client";
 
 import GridlyLogo from "@/components/gridly-logo";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,19 +21,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { appConfig, authConfig, dashboardConfig } from "@/config";
-import { signOut, useSession } from "@/lib/auth-client";
-import {
-  ChevronsUpDown,
-  LogOutIcon,
-  Moon,
-  SettingsIcon,
-  Sun,
-} from "lucide-react";
-import { useTheme } from "next-themes";
+import {Skeleton} from "@/components/ui/skeleton";
+import {appConfig, authConfig, dashboardConfig} from "@/config";
+import {signOut, useSession} from "@/lib/auth-client";
+import {ChevronsUpDown, LogOutIcon, Moon, Sun,} from "lucide-react";
+import {useTheme} from "next-themes";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 export function AppSidebar() {
   const pathname = usePathname();
