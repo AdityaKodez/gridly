@@ -11,6 +11,11 @@ const onboardingStepIds = new Set<OnboardingStepId>(
   onboardingSteps.map((step) => step.id),
 );
 
+const onboardingRecordSelect = {
+  completedStepIds: true,
+  dismissedAt: true,
+} as const;
+
 type UserOnboardingRecord = {
   completedStepIds: string[];
   dismissedAt: Date | null;
@@ -46,37 +51,7 @@ function getCompletedStepSet(record: UserOnboardingRecord) {
   );
 }
 
-async function ensureOnboardingRecord(userId: string) {
-  return prisma.userOnboarding.upsert({
-    where: { userId },
-    update: {},
-    create: { userId },
-    select: {
-      completedStepIds: true,
-      dismissedAt: true,
-    },
-  });
-}
-
-export function isKnownOnboardingStepId(
-  value: FormDataEntryValue | null,
-): value is OnboardingStepId {
-  return typeof value === "string" && onboardingStepIds.has(value as OnboardingStepId);
-}
-
-export async function getOnboardingSnapshot(
-  userId: string,
-): Promise<OnboardingSnapshot> {
-  const record = normalizeOnboardingRecord(
-    await prisma.userOnboarding.findUnique({
-      where: { userId },
-      select: {
-        completedStepIds: true,
-        dismissedAt: true,
-      },
-    }),
-  );
-
+function buildOnboardingSnapshot(record: UserOnboardingRecord): OnboardingSnapshot {
   const completedStepIds = getCompletedStepSet(record);
   const steps = onboardingSteps.map((step) => ({
     ...step,
@@ -96,6 +71,28 @@ export async function getOnboardingSnapshot(
   };
 }
 
+async function ensureOnboardingRecord(userId: string) {
+  return prisma.userOnboarding.upsert({
+    where: { userId },
+    update: {},
+    create: { userId },
+    select: onboardingRecordSelect,
+  });
+}
+
+export async function getOnboardingSnapshot(
+  userId: string,
+): Promise<OnboardingSnapshot> {
+  const record = normalizeOnboardingRecord(
+    await prisma.userOnboarding.findUnique({
+      where: { userId },
+      select: onboardingRecordSelect,
+    }),
+  );
+
+  return buildOnboardingSnapshot(record);
+}
+
 export async function completeOnboardingStep(
   userId: string,
   stepId: OnboardingStepId,
@@ -107,17 +104,28 @@ export async function completeOnboardingStep(
   const record = normalizeOnboardingRecord(await ensureOnboardingRecord(userId));
   const completedStepIds = getCompletedStepSet(record);
   if (completedStepIds.has(stepId)) {
-    return;
+    return record;
   }
 
   completedStepIds.add(stepId);
 
-  await prisma.userOnboarding.update({
+  return prisma.userOnboarding.update({
     where: { userId },
     data: {
       completedStepIds: Array.from(completedStepIds),
     },
+    select: onboardingRecordSelect,
   });
+}
+
+export async function getDashboardOnboardingSnapshot(
+  userId: string,
+): Promise<OnboardingSnapshot> {
+  const record = normalizeOnboardingRecord(
+    await completeOnboardingStep(userId, "learn-layout"),
+  );
+
+  return buildOnboardingSnapshot(record);
 }
 
 export async function dismissOnboarding(userId: string) {

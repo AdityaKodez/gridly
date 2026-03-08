@@ -2,7 +2,6 @@
 
 import { startTransition, useEffect, useRef } from "react";
 
-import { dashboardConfig } from "@/config";
 import { completeOnboardingStepByIdAction } from "./actions";
 import type { OnboardingStepId } from "./steps";
 
@@ -14,10 +13,6 @@ export function OnboardingAutoStep({
   const hasRunRef = useRef(false);
 
   useEffect(() => {
-    if (!dashboardConfig.onboarding.enabled) {
-      return;
-    }
-
     if (hasRunRef.current) {
       return;
     }

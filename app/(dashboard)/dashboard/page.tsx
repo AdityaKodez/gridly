@@ -2,18 +2,14 @@ import { DashboardHeader } from "@/features/dashboard/dashboard-header";
 import { dashboardConfig } from "@/config";
 import { OnboardingChecklistCard } from "@/features/onboarding/checklist-card";
 import { requireAuth } from "@/lib/auth-utils";
-import { completeOnboardingStep, getOnboardingSnapshot } from "@/lib/onboarding";
+import { getDashboardOnboardingSnapshot } from "@/lib/onboarding";
 
 export default async function DashboardPage() {
   const session = await requireAuth();
   const onboardingEnabled = dashboardConfig.onboarding.enabled;
 
-  if (onboardingEnabled) {
-    await completeOnboardingStep(session.user.id, "learn-layout");
-  }
-
   const onboarding = onboardingEnabled
-    ? await getOnboardingSnapshot(session.user.id)
+    ? await getDashboardOnboardingSnapshot(session.user.id)
     : null;
   const nextStep = onboarding?.steps.find((step) => !step.completed);
 
