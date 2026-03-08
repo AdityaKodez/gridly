@@ -1,23 +1,6 @@
 <div align="center">
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="80" height="80" role="img" aria-label="Gridly Logo">
-  <rect x="0" y="0" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="8" y="0" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="16" y="0" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="24" y="0" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="0" y="8" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="8" y="8" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="16" y="8" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="24" y="8" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="0" y="16" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="8" y="16" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="16" y="16" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="24" y="16" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="0" y="24" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-  <rect x="8" y="24" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="16" y="24" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.15"/>
-  <rect x="24" y="24" width="6" height="6" rx="0.5" fill="currentColor" opacity="0.85"/>
-</svg>
+![Gridly Logo](public/gridly-logo.svg)
 
 # Gridly
 
