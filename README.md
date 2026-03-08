@@ -1,6 +1,6 @@
 <div align="center">
 
-![Gridly Logo](public/gridly-logo.svg)
+<img src="public/gridly-logo.svg" alt="Gridly Logo" width="56" height="56" />
 
 # Gridly
 
