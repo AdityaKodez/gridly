@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "npx prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --import tsx --conditions=react-server --test"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.30",
@@ -61,6 +62,7 @@
     "eslint-config-next": "16.1.6",
     "prisma": "^7.4.0",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
