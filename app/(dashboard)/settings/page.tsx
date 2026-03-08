@@ -10,9 +10,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { dashboardConfig } from "@/config";
 import prisma from "@/lib/db";
 import { plansConfig } from "@/config";
 import { ManageBillingButton } from "@/features/dashboard/manage-billing-button";
+import { OnboardingAutoStep } from "@/features/onboarding/auto-step";
 
 export default async function SettingsPage() {
   const session = await requireAuth();
@@ -42,6 +44,9 @@ export default async function SettingsPage() {
     <>
       <DashboardHeader title="Settings" />
       <div className="p-6 flex justify-center size-full">
+        {dashboardConfig.onboarding.enabled ? (
+          <OnboardingAutoStep stepId="review-settings" />
+        ) : null}
         <div className="w-full space-y-6">
           {/* Profile Card */}
           <Card>

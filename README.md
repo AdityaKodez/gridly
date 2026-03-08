@@ -13,7 +13,7 @@ Auth, database, payments, AI chat, background jobs — fully wired.<br/>
 ![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=flat-square&logo=prisma&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)
 
-[Live Demo](https://gridly.akoder.xyz) · [Quick Start](#quick-start) · [Buy Me a Coffee](https://buymeacoffee.com/adikodez)
+[Live Demo](https://gridly.akoder.xyz) · [Quick Start](#quick-start) · [Changelog](CHANGELOG.md) · [Buy Me a Coffee](https://buymeacoffee.com/adikodez)
 
 [![RepoStars](https://repostars.dev/api/embed?repo=AdityaKodez%2Fgridly&theme=dark)](https://repostars.dev/?repos=AdityaKodez%2Fgridly&theme=dark)
 
@@ -37,6 +37,7 @@ Auth, database, payments, AI chat, background jobs — fully wired.<br/>
 | **Security** | Arcjet — Shield WAF, bot protection, route-level rate limiting |
 | **UI** | Shadcn/ui — accessible, themeable component system |
 | **UX** | Next.js App Router streaming + layout-matching loading skeletons |
+| **Dashboard Onboarding** | Config-driven starter checklist with per-user progress, hide/show state, and automatic completion hooks |
 | **Landing Page** | Hero, Features, Pricing, Comparison, FAQ, Footer — all config-driven |
 | **Legal** | `/privacy` + `/terms` — editable from config |
 | **Config-Driven** | One `config.ts` to rename, reprice, retheme, and rebrand everything |
@@ -90,7 +91,40 @@ export const appConfig = {
 };
 ```
 
-Landing page copy, pricing plans, auth providers, dashboard nav, legal pages — all driven from this file. No hunting through 20 files to rebrand.
+Landing page copy, pricing plans, auth providers, dashboard nav, onboarding, and legal pages — all driven from this file. No hunting through 20 files to rebrand.
+
+### Dashboard Onboarding
+
+Dashboard onboarding is controlled from `config.ts` under `dashboardConfig.onboarding`.
+
+```ts
+export const dashboardConfig = {
+  onboarding: {
+    enabled: true,
+    badgeLabel: "Onboarding",
+    title: "Quick starter checklist",
+    description: "Keep setup in one place, then hide it once the app feels familiar.",
+    hiddenTitle: "Onboarding hidden",
+    hiddenDescription: "Bring it back whenever you want the starter checklist again.",
+    hideActionLabel: "Hide for now",
+    showActionLabel: "Show onboarding",
+    steps: [
+      {
+        id: "learn-layout",
+        title: "Learn the workspace layout",
+        contextRoute: "/dashboard",
+      },
+    ],
+  },
+};
+```
+
+What it does:
+
+- Shows a compact onboarding checklist on the dashboard only
+- Stores completion and dismiss state per user in the database
+- Lets you disable the whole section by setting `dashboardConfig.onboarding.enabled` to `false`
+- Lets you change the onboarding copy and steps from `config.ts`
 
 ---
 
@@ -110,6 +144,7 @@ Landing page copy, pricing plans, auth providers, dashboard nav, legal pages —
 | `ARCJET_KEY` | Security (recommended) | [Arcjet Dashboard](https://app.arcjet.com) |
 
 Only enable the OAuth providers you add keys for — the sign-in page adapts automatically.
+
 ## Arcjet Security (Rate Limiting + Bot Protection)
 
 Arcjet is pre-wired and controlled entirely from `config.ts` + one env var:
@@ -119,6 +154,7 @@ Arcjet is pre-wired and controlled entirely from `config.ts` + one env var:
 - Fine-tune `shield`, `botProtection`, and `rateLimit` in `appConfig.arcjet`
 
 Current route coverage:
+
 - `authRules` on `POST /api/auth/[...all]`
 - `apiRules` on `/api/trpc/[trpc]`
 - `aiRules` on `/api/ai/chat`
@@ -170,6 +206,12 @@ prisma/                 # Schema + migrations
 config.ts               # Single config for the entire app
 types/                  # Shared TypeScript types
 ```
+
+Recent onboarding files:
+
+- `features/onboarding/` — checklist UI, auto-step helper, and actions
+- `lib/onboarding.ts` — onboarding snapshot + persistence helpers
+- `prisma/schema.prisma` — `UserOnboarding` model
 
 ---
 

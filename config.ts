@@ -22,23 +22,27 @@ import {
 } from "./public";
 import type {
   ComparisonRow,
+  DashboardConfig,
   FAQItem,
   Feature,
   FooterLink,
   Highlight,
   LegalDocument,
   NavItem,
+  OnboardingStepConfig,
   Plan,
   TechStackItem,
 } from "./types/config";
 export type {
   ComparisonRow,
+  DashboardConfig,
   FAQItem,
   Feature,
   FooterLink,
   Highlight,
   LegalDocument,
   NavItem,
+  OnboardingStepConfig,
   Plan,
   TechStackItem,
 };
@@ -454,4 +458,52 @@ export const dashboardConfig = {
     { title: "AI Chat", url: "/ai", icon: BotIcon },
     { title: "Settings", url: "/settings", icon: UserCog2Icon },
   ] satisfies NavItem[],
-};
+  onboarding: {
+    enabled: true,
+    badgeLabel: "Onboarding",
+    title: "Quick starter checklist",
+    description:
+      "Keep setup in one place, then hide it once the app feels familiar.",
+    hiddenTitle: "Onboarding hidden",
+    hiddenDescription:
+      "Bring it back whenever you want the starter checklist again.",
+    hideActionLabel: "Hide for now",
+    showActionLabel: "Show onboarding",
+    steps: [
+      {
+        id: "learn-layout",
+        title: "Learn the workspace layout",
+        description:
+          "Use the dashboard as your home base, then jump into AI Chat and Settings without hunting through the codebase.",
+        hint:
+          "This checklist stays visible on the dashboard so new users always have a safe place to return to.",
+        icon: LayoutDashboardIcon,
+        contextRoute: "/dashboard",
+      },
+      {
+        id: "try-ai-chat",
+        title: "Try the AI assistant",
+        description:
+          "Open AI Chat to verify the protected AI route is wired into the app shell correctly.",
+        hint:
+          "Once the AI route opens successfully, you can iterate on prompts and tools later.",
+        href: "/ai",
+        ctaLabel: "Open AI Chat",
+        icon: BotIcon,
+        contextRoute: "/ai",
+      },
+      {
+        id: "review-settings",
+        title: "Review account and billing",
+        description:
+          "Open Settings to verify your session data, billing status, and account surface are all loading correctly.",
+        hint:
+          "Settings is the right place to confirm account details instead of sending users back into config files.",
+        href: "/settings",
+        ctaLabel: "Open Settings",
+        icon: UserCog2Icon,
+        contextRoute: "/settings",
+      },
+    ] satisfies OnboardingStepConfig[],
+  },
+} as const satisfies DashboardConfig;
