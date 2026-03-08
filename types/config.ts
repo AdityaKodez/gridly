@@ -22,6 +22,45 @@ export type NavItem = {
   icon: LucideIcon;
 };
 
+export type OnboardingContextRoute = "/dashboard" | "/ai" | "/settings";
+
+export type OnboardingStepId =
+  | "learn-layout"
+  | "try-ai-chat"
+  | "review-settings";
+
+export type OnboardingStepConfig = {
+  id: OnboardingStepId;
+  title: string;
+  description: string;
+  hint: string;
+  href?: string;
+  ctaLabel?: string;
+  icon: LucideIcon;
+  contextRoute: OnboardingContextRoute;
+};
+
+export type DashboardOnboardingConfig = {
+  enabled: boolean;
+  badgeLabel: string;
+  title: string;
+  description: string;
+  hiddenTitle: string;
+  hiddenDescription: string;
+  hideActionLabel: string;
+  showActionLabel: string;
+  steps: readonly OnboardingStepConfig[];
+};
+
+export type DashboardConfig = {
+  sidebar: {
+    width: string;
+    widthIcon: string;
+  };
+  nav: NavItem[];
+  onboarding: DashboardOnboardingConfig;
+};
+
 // ─── Landing Page ────────────────────────────────────
 export type Feature = {
   icon: LucideIcon;

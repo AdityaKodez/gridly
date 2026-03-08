@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, DatabaseIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { appConfig, landingConfig } from "@/config";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
