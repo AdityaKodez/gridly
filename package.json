@@ -14,7 +14,7 @@
     "@arcjet/next": "^1.5.0",
     "@base-ui/react": "^1.1.0",
     "@polar-sh/better-auth": "^1.8.4",
-    "@polar-sh/sdk": "^0.48.1",
+    "@polar-sh/sdk": "^0.47.1",
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.8.0",
     "@streamdown/cjk": "^1.0.2",
