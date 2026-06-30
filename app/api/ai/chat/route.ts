@@ -7,7 +7,7 @@ import { auth } from "@/lib/auth";
 import {
   convertToModelMessages,
   safeValidateUIMessages,
-  stepCountIs,
+  isStepCount,
   streamText,
   tool
 } from "ai";
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
       model: aiModel,
       system: systemPrompt,
       messages: await convertToModelMessages(validatedMessages.data),
-      stopWhen: stepCountIs(5),
+      stopWhen: isStepCount(5),
       tools: {
         getUserInfo: tool({
           description:
