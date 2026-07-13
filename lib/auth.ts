@@ -9,7 +9,10 @@ import { getEnabledSocialProvidersConfig } from "./auth-providers";
 import { applyOrderPaidEntitlement } from "./billing";
 
 const authEnvSchema = z.object({
-  BETTER_AUTH_SECRET: z.string().trim().min(1),
+  BETTER_AUTH_SECRET: z
+    .string()
+    .trim()
+    .min(32, "BETTER_AUTH_SECRET must be at least 32 characters"),
   BETTER_AUTH_URL: z.string().url(),
   // Polar is optional — the app runs fine without payments configured.
   POLAR_ACCESS_TOKEN: z.string().trim().min(1).optional(),
