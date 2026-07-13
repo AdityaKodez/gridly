@@ -10,19 +10,20 @@ const arcjetKey = process.env.ARCJET_KEY?.trim();
 
 type ArcjetRules = Parameters<ReturnType<typeof arcjet>["withRule"]>[0];
 
-let hasWarnedMissingKey = false;
-
 function shouldEnableArcjet() {
   if (!arcjetConfig.enabled) return false;
+
   if (arcjetKey) return true;
 
-  if (!hasWarnedMissingKey) {
-    hasWarnedMissingKey = true;
-    console.warn(
-      "[Arcjet] ARCJET_KEY is missing; Arcjet protection is disabled. Set ARCJET_KEY or turn off appConfig.arcjet.enabled.",
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "ARCJET_KEY is required when appConfig.arcjet.enabled=true in production",
     );
   }
 
+  console.warn(
+    "[Arcjet] ARCJET_KEY missing; protection disabled in non-production.",
+  );
   return false;
 }
 

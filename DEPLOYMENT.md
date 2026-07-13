@@ -44,7 +44,18 @@ Gridly uses the Vercel AI SDK and is configured to use Google's Gemini 2.0 Flash
 
 ---
 
-## 4. Deploy to Vercel
+## 4. Get your Arcjet Key (required for WAF / bot / rate limits)
+
+Gridly enables Arcjet by default (`appConfig.arcjet.enabled`). In production, **`ARCJET_KEY` is required** when that flag is true; the app will throw on startup if the key is missing so protection cannot fail open silently.
+
+1. Create an account at [Arcjet](https://arcjet.com) and create a site/key for your project.
+2. Copy the key. You will need it as your `ARCJET_KEY` environment variable.
+
+If you intentionally want to run without Arcjet, set `appConfig.arcjet.enabled` to `false` in `config.ts` before deploying.
+
+---
+
+## 5. Deploy to Vercel
 
 Now that you have your external services ready, it's time to push your code.
 
@@ -61,6 +72,7 @@ Now that you have your external services ready, it's time to push your code.
 | `BETTER_AUTH_SECRET` | Your randomly generated string (from Step 2) |
 | `BETTER_AUTH_URL` | The URL Vercel will give you (e.g., `https://my-gridly-app.vercel.app`) |
 | `GOOGLE_GENERATIVE_AI_API_KEY` | Your Google API Key (from Step 3) |
+| `ARCJET_KEY` | Your Arcjet API key (from Step 4; required when Arcjet is enabled) |
 
 *(Note: If you have set up OAuth providers like GitHub or Google, or Polar payments, add those API keys and Client IDs here as well).*
 
@@ -70,7 +82,7 @@ Vercel will build the Next.js application.
 
 ---
 
-## 5. Migrate your Database
+## 6. Migrate your Database
 
 Vercel just deployed the frontend code, but your Neon database is still completely empty. Your app will crash if you try to log in right now because the users tables don't exist yet!
 
@@ -87,7 +99,7 @@ Vercel just deployed the frontend code, but your Neon database is still complete
 
 ---
 
-## 6. You're Live! 🚀
+## 7. You're Live! 🚀
 
 Go to your Vercel URL. You should see the Gridly landing page. 
 Click **Log in**, complete the sign-up flow, and enjoy your new blazing-fast SaaS stack.
