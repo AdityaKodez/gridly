@@ -32,8 +32,9 @@ export async function applyOrderPaidEntitlement(
   }
 
   const order = parsed.data;
-  const normalizedEmail = order.customer.email.toLowerCase();
-  const planSlug = order.productId ? planByProductId.get(order.productId) : null;
+  const planSlug = order.productId
+    ? planByProductId.get(order.productId)
+    : null;
 
   if (!planSlug) {
     console.warn("[Polar] Unmapped product in order.paid", {
@@ -43,14 +44,26 @@ export async function applyOrderPaidEntitlement(
     return;
   }
 
-  const user = await prisma.user.findUnique({ where: { email: normalizedEmail } })
+  let user = order.customer.externalId
+    ? await prisma.user.findUnique({ where: { id: order.customer.externalId } })
+    : null;
+
+  if (!user) {
+    const normalizedEmail = order.customer.email.toLowerCase();
+    user = await prisma.user.findUnique({ where: { email: normalizedEmail } });
+  }
 
   if (!user) {
     console.error("[Polar] No matching user for paid order", {
       orderId: order.id,
-      email: normalizedEmail,
       externalId: order.customer.externalId,
+      email: order.customer.email.toLowerCase(),
     });
+    return;
+  }
+
+  // Idempotent: skip if this order was already applied
+  if (user.polarLastOrderId === order.id) {
     return;
   }
 
