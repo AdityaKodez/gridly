@@ -15,23 +15,30 @@ const providerSecretsSchema = z.object({
   clientSecret: z.string().trim().min(1),
 });
 
-const providerEnv: Record<AuthProvider, { clientId?: string; clientSecret?: string }> = {
-  github: {
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  },
-  google: {
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  },
-  discord: {
-    clientId: process.env.DISCORD_CLIENT_ID,
-    clientSecret: process.env.DISCORD_CLIENT_SECRET,
-  },
-};
+function getProviderEnv(provider: AuthProvider): { clientId?: string; clientSecret?: string } {
+  switch (provider) {
+    case "github":
+      return {
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      };
+    case "google":
+      return {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      };
+    case "discord":
+      return {
+        clientId: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      };
+    default:
+      return {};
+  }
+}
 
 function parseProviderSecrets(provider: AuthProvider): ProviderSecrets | null {
-  const parsed = providerSecretsSchema.safeParse(providerEnv[provider]);
+  const parsed = providerSecretsSchema.safeParse(getProviderEnv(provider));
   return parsed.success ? parsed.data : null;
 }
 
