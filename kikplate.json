@@ -1,0 +1,9 @@
+{
+  "name": "gridly",
+  "shortDescription": "AI-Native Next.js SaaS Starter",
+  "description": "Production-ready SaaS boilerplate built with Next.js, TypeScript, Prisma, tRPC, Better Auth, and Vercel AI SDK.",
+  "url": "https://github.com/...",
+  "framework": "nextjs",
+  "stack": ["nextjs", "typescript", "prisma", "trpc", "better-auth", "ai-sdk", "shadcn-ui"],
+  "license": "MIT"
+}
